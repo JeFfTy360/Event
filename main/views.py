@@ -18,13 +18,16 @@ def index(request):
 
 @api_view(['GET'])
 def showUserProfil(request, username):
-    user = User.objects.get(username=username)
-    serializer_user = Authentication.serializer.PublicUserSerializer(user)
+    
     try:
+        user = User.objects.get(username=username)
+        serializer_user = Authentication.serializer.PublicUserSerializer(user)
+    
+    
         event_of_user = Event.objects.filter(manager=User.objects.get(username=username).id)
         serialize_event =EventSerializer(event_of_user, many=True)
-    except Event.DoesNotExist:
-        return JsonResponse("error")
+    except Exception as error:
+        return HttpResponse(error, status=status.HTTP_204_NO_CONTENT)
     
     data = {
         "user": serializer_user.data,
