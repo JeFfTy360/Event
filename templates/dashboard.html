@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>{{data}}</p>
+    {% for each in data.all_event %}
+        <div>
+            <p>
+                Event name: {{each.name}} 
+                
+                Event Date: {{each.date}}
+                
+                sold place: {{each.sold_place}} 
+
+                revenue: {{each.revenus}}
+
+                <a href="/event/delete/{{each.id}}">Delete Event</a>
+            </p>
+           
+        </div>
+    {% endfor %}
+</body>
+</html>

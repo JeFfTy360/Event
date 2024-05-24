@@ -2,11 +2,11 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
-app_name = "accounts"
 
 
 urlpatterns = [
     path("login/",views.login),
-    path("createAccount/", views.createAccount),
-    
+    path("signup/", views.createAccount),
+    path("logout/", views.log_out),
+    path("myprofil/", views.viewPrivateProfil),
 ]

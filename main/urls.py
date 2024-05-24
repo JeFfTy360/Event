@@ -4,4 +4,5 @@ from . import views
 urlpatterns = [
     path("",views.index),
     path("profil/<str:username>", views.showUserProfil),
+    path("buyticket/<int:eventId>", views.buyTicket)
 ]

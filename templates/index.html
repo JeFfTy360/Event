@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% load static %}
+
+    {% for each in event %}
+        <div>
+            <p>
+                <img src="{{each.flyers}}">
+                Event name: {{each.name}} 
+                
+                
+                Event manager: <a href="/profil/{{each.manager}}">{{each.manager}}</a>
+                
+                place: {{each.place}}
+
+                <a href="/buyticket/{{each.id}}">buy a ticket</a>
+            </p>
+           
+        </div>
+    {% endfor %}
+</body>
+</html>
