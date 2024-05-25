@@ -1,5 +1,5 @@
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import status
 from .models import User
 from .serializer import *
@@ -8,6 +8,7 @@ from event.models import Event
 from event.serializer import EventSerializer, EventSerializerprivate
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout
+from django.contrib import messages
 import logging
 from event.models import Ticket
 # Create your views here.
@@ -42,7 +43,7 @@ def login(request):
             "username": request.user.username,
             "email":request.user.email,
             "name":request.user.last_name + request.user.first_name,
-            "total event":len(Event.objects.filter(manager=request.user.id)),
+            "total_event":len(Event.objects.filter(manager=request.user.id)),
             "total_revenus":data_calcul[1],
             "total_vente":data_calcul[0],
             "profil":User.objects.get(pk=request.user.id).profil.__str__(),
@@ -60,14 +61,14 @@ def login(request):
             
             if user is not None:
                 auth_login(request, user)  # Enregistre l'utilisateur dans la session
-                return HttpResponseRedirect('/login/')
+                return HttpResponseRedirect("/login/") 
             else:
-                return Response({"error": "Invalid credentials"}, template_name='connect.html')
+                return Response({"message": "username or password is incorect",},template_name='login.html' )
         except Exception as e:
             print(e)
-            return Response({"error": "An error occurred"+e}, template_name='connect.html')
+            return Response({"message": "username or password is incorect",},template_name='login.html' )
     else:
-        return Response(template_name='connect.html')            
+        return Response(template_name='login.html')            
 
 
 @api_view(['GET','POST'])
