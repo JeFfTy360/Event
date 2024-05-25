@@ -1,0 +1,5 @@
+ERROR:root:'email'
+ERROR:root:'email'
+INFO:django.utils.autoreload:C:\Users\JeFfTy\Downloads\agu\Tech_web\Event\Authentication\serializer.py changed, reloading.
+ERROR:root:UNIQUE constraint failed: auth_user.username
+INFO:django.utils.autoreload:C:\Users\JeFfTy\Downloads\agu\Tech_web\Event\Authentication\views.py changed, reloading.
