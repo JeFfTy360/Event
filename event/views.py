@@ -18,6 +18,14 @@ def makeTicket(event, place):
     for each in range(place):
         Ticket.objects.create(event_id = event, status="available")
 
+@api_view(['GET','POST'])
+def scanTicket(request, event_id, code_ticket):
+    all_ticket_for_this_event = Ticket.objects.filter(event_id=event_id)
+    # print(all_ticket_for_this_event)
+    # print(22,Ticket.objects.get(pk=code_ticket))
+    # print(12,(Ticket.objects.get(pk=code_ticket) in all_ticket_for_this_event))
+    return HttpResponse((Ticket.objects.get(pk=code_ticket) in all_ticket_for_this_event))
+    
 
 
 @api_view(['POST'])
