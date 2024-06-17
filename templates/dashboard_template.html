@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        {% load static %}
+
+         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{%block title%}{%endblock%}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'dash.css' %}"> <!-- Lien vers le fichier CSS personnalisé -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    
+    <div class="container-fluid">
+        <div class="row header">
+            <div class="col-md-12">
+                <h1>{%block name_page%}{%endblock%}</h1>
+                <nav class="navbar navbar-expand-lg custom-navbar">
+                    <a class="navbar-brand text-white" href="#"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto align-items-center">
+                            <!-- Profil utilisateur -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    
+                                    <div class="d-inline-block">
+                                        <h5 class="mb-0 text-white">{{data.name}}</h5>
+                                        <span class="text-white">{{data.username}}
+                                            {% comment %} <br>Telephone : +7 996 472 1931 {% endcomment %}
+                                            <br>Email : {{data.email}}
+                                        </span>
+                                    </div>
+
+                                    {%if data.profil%}
+                                        <img src="/{{data.profil}}" class="rounded-circle mr-2" alt="User Image">
+                                    {%endif%}
+                                    {% if not data.profil %}
+                                        <img src="/data/default/profil.png" class="rounded-circle mr-2" alt="User Image">
+                                    {%endif%}
+                                    
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right bg-dark text-white" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item text-white" href="/profil/"><i class="bi bi-person"></i> Profil</a>
+                                    <a class="dropdown-item text-white" href="/logout/"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                                </div>
+                            </li>
+                            <!-- Messages -->
+                            
+                            <!-- Notifications -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-bell-fill"></i>
+                                    <span class="badge badge-danger badge_noti">{{data.count_notification}}</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right bg-dark text-white" aria-labelledby="notificationDropdown">
+                                    <h6 class="dropdown-header text-white">Notifications</h6>
+                                    
+                                    {%if data.count_notification >= 1%}
+                                        {%for each in data.notification%}
+                                            <div class="dropdown-item text-white"><a href="/readnotification/{{each.id}}">{{each.description}}</a></div>
+                                        {%endfor%}
+                                    {%endif%}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <nav class="col-md-3 sidebar">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/login/"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="bi bi-card-checklist"></i> Listes des evenements</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/event/create/"><i class="bi bi-file-earmark-plus"></i> Creer un evenement</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"></a>
+                        </li>
+                    </ul>
+                </nav>
+    
+                <!-- page principal  -->
+                {%block main%}
+
+                {%endblock%}
+            </div>
+        </div>   
+
+
+      
+    <footer class="mt-4">
+        <div class="container">
+            <p>&copy; 2024 Vente de Billets d'Événements. Tous droits réservés.</p>
+        
+        </div>
+
+        
+    </footer>
+
+</body>
+</html>

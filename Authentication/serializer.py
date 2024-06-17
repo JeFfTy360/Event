@@ -22,3 +22,14 @@ class PublicUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ["username", "first_name", "last_name", "email"]
   
+  
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username", "email"]
+        
+class notifiactionSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = notification
+        fields = "__all__"

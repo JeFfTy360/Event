@@ -27,15 +27,17 @@ class Event(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     date = models.DateField(auto_now_add=False)
+    time = models.TimeField(auto_now=False, auto_now_add=False, null=True)
     line_up = models.TextField(blank=False)
     price = models.FloatField(blank=True, default=0)
     place = models.IntegerField(blank=False)
     sold_place = models.IntegerField(blank=False, default=0)
     # remaining_place = models.IntegerField(blank=True, default=0)
-    manager = models.ForeignKey(User, on_delete=models.CASCADE)
+    manager = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     flyers = models.ImageField(upload_to=user_directory_path, blank=True)
     revenus = models.FloatField(blank=False, default=0)
-    
+    adress = models.TextField(null=True, max_length=255)
+  
     
     def __str__(self):
         return self.name + str(self.id)
@@ -46,7 +48,7 @@ class Event(models.Model):
 class Ticket(models.Model):
     event_id = models.ForeignKey(Event, on_delete=models.CASCADE)
     status = models.CharField(default="available", max_length=50)
-    owner = models.CharField(null=True, max_length=20, blank=True)
+    owner = models.CharField(null=False, max_length=20, default="")
     def __str__(self):
         return str(str(self.id)+" for "+str(self.event_id))
     

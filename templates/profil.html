@@ -1,0 +1,65 @@
+{%extends "dashboard_template.html"%}
+
+
+{%block title%}
+{{data.username}} Dashboard - Astrakahn Event Accounts
+{%endblock%}
+
+
+{%block name_page%}
+Create Event
+{%endblock%}
+
+
+{% block main %}
+<main class="col-md-9 content" >
+    <!-- Contenu pour Créer un événement -->
+    <h2>Update you profil</h2>
+    <form enctype="multipart/form-data" class="login100-form validate-form" method="POST" action="/profil/" >
+        {% csrf_token %}
+        <!-- Nom de l'événement -->
+        <div class="form-group">
+            <p>Username</p>
+            {% comment %} <label for="name">Event name</label> {% endcomment %}
+            <input type="text" value={{data.username}} class="form-control" name="username" id="username" placeholder="{{data.username}}">
+        </div>
+
+        <div class="form-group">
+            <p>Email</p>
+            {% comment %} <label for="name">Event name</label> {% endcomment %}
+            <input type="text" value={{data.email}} class="form-control" name="email" id="email" placeholder="{{data.email}}">
+        </div>
+
+        <div class="form-group">
+            <p>Password</p>
+            {% comment %} <label for="name">Event name</label> {% endcomment %}
+            <input type="password" class="form-control" name="password" id="password" placeholder="***">
+        </div>
+
+
+        
+        
+        
+
+        
+        
+        <!-- Brochure de l'événement -->
+        <div class="form-group">
+            <p>Photo profil</p>
+            {% comment %} <label for="eventBrochure">Flyers of event</label> {% endcomment %}
+            <input type="file" value={{data.profil}} class="form-control" id="profil" name="profil" accept="image/*">
+            {% comment %} <small class="form-text text-muted">Choice a flyers for the event.</small> {% endcomment %}
+            {% comment %} <div id="brochurePreview" style="margin-top: 10px;"></div> <!-- Prévisualisation de l'image --> {% endcomment %}
+        </div>
+
+        <!-- Bouton pour créer l'événement -->
+        <button type="submit" class="btn btn-primary">Update your account</button>
+    </form>
+    {%if messae%}
+        <div>
+            {{message}}
+        </div>
+    {%endif%}
+</main>
+
+{%endblock%}

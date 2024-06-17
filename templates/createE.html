@@ -1,0 +1,116 @@
+{%extends "dashboard_template.html"%}
+
+
+{%block title%}
+{{data.username}} Dashboard - Astrakahn Event Accounts
+{%endblock%}
+
+
+{%block name_page%}
+Create Event
+{%endblock%}
+
+
+{% block main %}
+<main class="col-md-9 content" >
+    <!-- Contenu pour Créer un événement -->
+    <h2>Create and share new event</h2>
+    <form enctype="multipart/form-data" class="login100-form validate-form" method="POST" action="/event/create/" >
+        {% csrf_token %}
+        <!-- Nom de l'événement -->
+        <div class="form-group">
+            {% comment %} <label for="name">Event name</label> {% endcomment %}
+            <input type="text" class="form-control" name="name" id="name" placeholder="Name of event">
+        </div>
+
+         <!-- description of event -->
+        <div class="form-group">
+            {% comment %} <label for="description">Event description</label> {% endcomment %}
+            <textarea class="form-control" name="description" id="description" placeholder="Description of event" cols="40" rows="5"></textarea>
+        </div>
+        
+        <!-- Date -->
+        <div class="form-group">
+            {% comment %} <label for="date">Date</label> {% endcomment %}
+            <script>
+                $(function(){
+                    var dtToday = new Date();
+                    
+                    var month = dtToday.getMonth() + 1;
+                    var day = dtToday.getDate();
+                    var year = dtToday.getFullYear();
+                    if(month < 10)
+                        month = '0' + month.toString();
+                    if(day < 10)
+                        day = '0' + day.toString();
+                    
+                    var maxDate = year + '-' + month + '-' + day;
+                
+                    // or instead:
+                    // var maxDate = dtToday.toISOString().substr(0, 10);
+                
+                    $('#date').attr('min', maxDate);
+                });
+            </script>
+            
+            <input type="date" class="form-control" id="date" name="date">
+        </div>
+
+        <!-- Heure -->
+        <div class="form-group">
+            {% comment %} <label for="time">Heure</label> {% endcomment %}
+            <input type="time" class="form-control" id="time" name="time">
+        </div>
+        
+        <!-- line up -->
+        <div class="form-group">
+            {% comment %} <label for="line_up">Line up</label> {% endcomment %}
+            <textarea class="form-control" name="line_up" id="line_up" placeholder="Line up of event" cols="40" rows="5"></textarea>
+        </div>
+
+        <!-- adresse -->
+        <div class="form-group">
+            {% comment %} <label for="adress">Adress</label> {% endcomment %}
+            <input type="text" class="form-control" id="adress" name="adress" placeholder="Adress of event">
+        </div>
+        
+      
+        
+        <!-- Prix du billet -->
+        <div class="form-group">
+            {% comment %} <label for="price">Price</label> {% endcomment %}
+            <input type="number" step="0.01" class="form-control" name="price" id="price" placeholder="price of ticket for the event">
+        </div>
+        
+        <!-- place -->
+        <div class="form-group">
+            {% comment %} <label for="price">place</label> {% endcomment %}
+            <input type="number" name="place" class="form-control" id="place" placeholder="place avaible for the event">
+        </div>
+        
+        
+        <!-- Brochure de l'événement -->
+        <div class="form-group">
+            {% comment %} <label for="eventBrochure">Flyers of event</label> {% endcomment %}
+            <input type="file" class="form-control" id="flyers" name="flyers" accept="image/*">
+            {% comment %} <small class="form-text text-muted">Choice a flyers for the event.</small> {% endcomment %}
+            {% comment %} <div id="brochurePreview" style="margin-top: 10px;"></div> <!-- Prévisualisation de l'image --> {% endcomment %}
+        </div>
+
+        <!-- Bouton pour créer l'événement -->
+        <button type="submit" class="btn btn-primary">Créer l'événement</button>
+    </form>
+
+    {%if response%}
+    <script>
+        var text = "{{response|safe}}"
+        console.log(text);
+        alert(text)
+    </script>
+    {% comment %} <div>
+        <p>{{response}}</p>
+    </div> {% endcomment %}
+    {%endif%}
+</main>
+
+{%endblock%}

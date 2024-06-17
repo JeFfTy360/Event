@@ -100,8 +100,15 @@ h1{
 
 
 
-/*Page principale
+/*Page principale*/
+.content-section {
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    background-color: #fff;
+}
 
+/* dashbord*/
 /* Styles pour les cartes */
 .card {
     margin-bottom: 20px;
@@ -127,6 +134,86 @@ h1{
 .table tbody tr:nth-child(even) {
     background-color: #f2f2f2;
 }
+
+/* list event*/
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+.form-text {
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+#brochurePreview img {
+    max-width: 100%;
+    max-height: 150px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: block;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004080;
+}
+
+/* Boutons d'action */
+.btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+.btn-edit {
+    background-color: #ffc107; /* Couleur d'avertissement pour la modification */
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #e0a800; /* Couleur de survol pour la modification */
+}
+
+.btn-delete {
+    background-color: #dc3545; /* Couleur de danger pour la suppression */
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c82333; /* Couleur de survol pour la suppression */
+}
+
+.calendar, .scanner {
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+
 
 /* Styles pour les conteneurs */
 .container{

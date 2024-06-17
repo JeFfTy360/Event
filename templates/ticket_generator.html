@@ -1,28 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport"
-		content="width=device-width, 
-						initial-scale=1.0" />
-	<title>QR Code Generator</title>
-	
-	</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket - {{event_name}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #qrcode {
+            margin: 20px 0;
+        }
+        .download-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
-
 <body>
-	
-	<div>
-		<div id="test"></div>
-        <button id>Download</button>
+    <div class="container">
+        <h1>Ticket - {{event_name}}</h1>
+        <div id="qrcode"></div>
+        <button class="download-btn" onclick="downloadQRCode()">Download Ticket</button>
+    </div>
 
-	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-	<script>
-		var qrcode = new QRCode("test",
-		"{{ticket_code}}");
-	</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        // Générer le QR Code
+        const qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "{{ticket_code|safe}}",
+            width: 200,
+            height: 200
+        });
+
+        // Fonction pour télécharger le QR Code
+        function downloadQRCode() {
+            const qrElement = document.querySelector('#qrcode canvas');
+            const qrURL = qrElement.toDataURL("image/png");
+            const a = document.createElement('a');
+            a.href = qrURL;
+            a.download = 'qrcode.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
 </body>
-
 </html>

@@ -1,0 +1,80 @@
+
+{%extends "dashboard_template.html"%}
+
+
+{%block title%}
+{{data.username}} Scanner - Astrakahn Event Accounts
+{%endblock%}
+
+
+{%block name_page%}
+Dashboard
+{%endblock%}
+
+
+{% block main %}
+<main class="col-md-9 content">
+	<div class="container">
+		<h1>Scan QR Codes</h1>
+		<div class="section">
+			<div id="my-qr-reader"></div>
+		</div>
+	</div>
+	<div id=response></div>
+	<script
+		src="https://unpkg.com/html5-qrcode">
+	</script>
+	<script >
+        // script.js file
+
+function domReady(fn) {
+	if (
+		document.readyState === "complete" ||
+		document.readyState === "interactive"
+	) {
+		setTimeout(fn, 1000);
+	} else {
+		document.addEventListener("DOMContentLoaded", fn);
+	}
+}
+
+domReady(function () {
+    all_ticket = (({{ticket|safe}}))
+    
+	// If found you qr code
+	function onScanSuccess(decodeText, decodeResult) {
+        
+        for (var i = 0; i < all_ticket.length; i++){
+			console.log(decodeText)
+            console.log(all_ticket[i].id)
+			
+            if(parseInt(decodeText) === all_ticket[i].id){
+                alert("valid")
+				document.getElementById("response").innerHTML = '<button type="button" class="btn btn-success">Valid Ticket</button>';
+				
+                return 0;
+            }
+        } 
+        alert("invalid")
+		document.getElementById("response").innerHTML = '<button type="button" class="btn btn-danger">Invalid Ticket</button>';    
+        return 0;
+        
+    }
+    
+    
+
+	let htmlscanner = new Html5QrcodeScanner(
+		"my-qr-reader",
+		{ fps: 10, qrbos: 250 }
+	);
+	htmlscanner.render(onScanSuccess);
+});
+
+    </script>
+</main>
+{%endblock%}
+
+
+
+
+

@@ -5,7 +5,7 @@ from event.serializer import *
 from rest_framework import status
 from rest_framework.decorators import api_view
 import Authentication.serializer
-
+from Authentication.models import notification
 # Create your views here.
 
 from rest_framework.decorators import api_view
@@ -42,7 +42,18 @@ def showUserProfil(request, username):
         return Response(data, template_name='public_profil.html')
     except Exception as error:
         return Response(error, status=status.HTTP_204_NO_CONTENT)
-    
+
+
+@api_view(['POST'])
+@renderer_classes([TemplateHTMLRenderer])   
+def findEvent(request):
+    try:
+        print(request)
+        event = Event.objects.filter(name=request.data['event_name'])
+        serializer = EventSerializer(event, many=True,)
+        return Response({'event':  serializer.data }, template_name='index.html')
+    except Event.DoesNotExist:
+        return Response({'event':  serializer.data }, template_name='index.html')
     
 import random
 @api_view(['GET'])
@@ -50,6 +61,8 @@ import random
 def buyTicket(request, eventId):
     try:
         event = Event.objects.get(pk=eventId)
+        event_name = event.name
+        print(event)
     except Event.DoesNotExist:
         return HttpResponse("error the event dont exist")
     if(event.place > 0):
@@ -64,8 +77,11 @@ def buyTicket(request, eventId):
             event.sold_place = event.sold_place+1
             event.revenus = event.revenus + event.price
             event.save()
+            
+            # notification for admin
+            notification.objects.create(description="new buy for event "+event_name, user=event.manager)
         
-            return Response({"ticket_code":ticket.id}, template_name='ticket_generator.html')
+            return Response({"ticket_code":ticket.id, "event_name":event_name}, template_name='ticket_generator.html')
         except Exception as e:
             return HttpResponse("ticket dont available")
             

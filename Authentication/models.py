@@ -23,8 +23,18 @@ def user_directory_path(instance, filename):
 class User(MainUser, models.Model):
     profil = models.ImageField(upload_to=user_directory_path, null=True)
     
+    
     def __str__(self):
         return self.username
     
     
+class notification(models.Model):
+    is_read = models.BooleanField(default=False)
+    description = models.CharField(max_length=255,blank=False)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
     
+class odpCode(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False,)
+    code = models.CharField(max_length=100, blank=True)
+    timestamp = models.TimeField(auto_now_add=True)
